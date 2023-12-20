@@ -1,0 +1,349 @@
+{
+    "banner2": {
+        "builder": true,
+        "no_selection": false,
+        "name": "Second Banner Section",
+        "element": {
+            "images": {
+                "image": {
+                    "size": "1980x1280"
+                }
+            },
+            "heading": "text",
+            "subheading": "textarea",
+            "button_text_one": "text",
+            "button_url_one": "text",
+            "button_text_two": "text",
+            "button_url_two": "text",
+            "modal": false
+        }
+    },"banner": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Banner Section",
+        "element": {
+            "images": {
+                "image": {
+                    "size": "1980x1280"
+                }
+            },
+            "heading": "text",
+            "subheading": "textarea",
+            "button_text_one": "text",
+            "button_url_one": "text",
+            "button_text_two": "text",
+            "button_url_two": "text",
+            "modal": false
+        }
+    },
+
+    "breadcrumb": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Breadcrumb Section",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "730x465"
+                }
+            }
+        }
+    },
+
+
+    "about": {
+        "builder": true,
+        "name": "About Us",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "600x360"
+                }
+            },
+            "heading": "text",
+            "description": "textarea-nic",
+            "button_name": "text",
+            "button_url": "text"
+        }
+    },
+
+    "purpose": {
+        "builder": true,
+        "name": "Purpose Section",
+        "element": {
+            "images": {
+                "image": {
+                    "size": "600x360"
+                }
+            },
+            "heading": "text",
+            "description": "textarea-nic",
+            "modal": false
+        }
+    },
+
+    "campaign": {
+        "builder": true,
+        "no_selection": false,
+        "name": "Campaign Section",
+        "content": {
+            "title": "text",
+            "description": "textarea"
+        }
+    },
+
+    "feature": {
+        "builder": true,
+        "name": "Feature Section",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        },
+        "element": {
+            "title": "text",
+            "description": "textarea",
+            "icon": "icon",
+            "modal": true
+        }
+    },
+
+    "recently_funded": {
+        "builder": true,
+        "no_selection": false,
+        "name": "Recently Funded",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        }
+    },    
+
+    "target_impact": {
+        "builder": true,
+        "no_selection": false,
+        "name": "Target Impact",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        }
+    },
+
+    "story": {
+        "builder": true,
+        "name": "Inspirational Lines",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        },
+        "element": {
+            "images": {
+                "image": {
+                    "size": "730x465"
+                }
+            },
+            "title": "text",
+            "description": "textarea",
+            "modal": false
+        }
+    },
+
+    "top_donors": {
+        "builder": true,
+        "name": "Top Donors",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        }
+    },
+
+    "faq": {
+        "builder": true,
+        "name": "FAQ Section",
+        "element": {
+            "question": "text",
+            "answer": "textarea",
+            "modal": false
+        }
+    },
+
+    "counter": {
+        "builder": true,
+        "no_selection": false,
+        "name": "Counter Section",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "730x465"
+                }
+            },
+            "title": "text",
+            "description": "textarea",
+            "video_link": "text"
+        },
+        "element": {
+            "title": "text",
+            "digit": "text",
+            "modal": true
+        }
+    },
+
+    "volunteer": {
+        "builder": true,
+        "no_selection": false,
+        "name": "Volunteer Section",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        }
+    },
+
+    "cta": {
+        "builder": true,
+        "no_selection": false,
+        "name": "Call to Action",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "730x465"
+                }
+            },
+            "heading": "text",
+            "subheading": "textarea",
+            "button_title": "text",
+            "button_url": "text"
+        }
+    },
+
+    "success_story": {
+        "builder": true,
+        "no_selection": false,
+        "name": "Success Stories",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        }
+    },
+
+    "footer": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Footer Section",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "730x465"
+                }
+            },
+            "heading": "text",
+            "subheading": "text",
+            "button_name": "text",
+            "button_url": "text"
+        }
+    },
+
+    "subscribe": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Subscribe Section",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        }
+    },
+
+    "social_icon": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Social Icons",
+        "element": {
+            "title": "text",
+            "social_icon": "icon",
+            "url": "text",
+            "modal": true
+        }
+    },
+
+    "contact_us": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Contact Us",
+        "content": {
+            "images": {
+            "image": {
+                "size": "1025x720"
+            }
+        },
+            "heading": "text",
+            "contact_number": "text",
+            "contact_email": "text",
+            "contact_address": "text",
+            "facebook_link": "text",
+            "twitter_link": "text",
+            "linkedin_link": "text"
+        }
+    },
+
+    "login": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Login Page",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "1025x720"
+                }
+            },
+            "heading": "text",
+            "subheading": "text"
+        }
+    },
+    "register":{
+        "builder": true,
+        "no_selection": true,
+        "name": "Register Page",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "1024x720"
+                }
+            },
+            "heading": "text",
+            "subheading": "text"
+        }
+
+    },
+
+    "policy_pages": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Policy Pages",
+        "element": {
+            "title": "text",
+            "details": "textarea-nic",
+            "modal": false
+        }
+    },
+
+    "kyc_instruction": {
+        "builder": true,
+        "no_selection": true,
+        "name": "KYC Instructions",
+        "content": {
+            "verification_instruction": "text",
+            "pending_instruction": "text"
+        }
+    },
+
+    "banned": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Banned Page",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "700x400"
+                }
+            },
+            "heading": "text"
+        }
+    }
+}

@@ -26,7 +26,7 @@ class AdminController extends Controller
     public function dashboard()
     {
 
-// test
+
         $pageTitle = 'Dashboard';
 
         // User Info

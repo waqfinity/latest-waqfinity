@@ -118,12 +118,14 @@
 
                         </div>
                     </div>
-                    <hr>
+        @if ($campaign->isCorporate !== 1)
+            <section>
+                <hr>
                 <div class="section-header my-4">
                     <h2 class="text-dark" style="font-size: 1.5rem">   {{ __($campaignContent->data_values->heading) }}</h2>
                     <p style="font-size: 1rem">{{ __($campaignContent->data_values->subheading) }}</p>
                 </div>
-                        <div class="container d-flex align-items-center gap-xl-4 gap-3 flex-wrap px-0 mt-4">
+                <div class="container d-flex align-items-center gap-xl-4 gap-3 flex-wrap px-0 mt-4">
                         @php
                             $totalCategories = count($campaign->CampaignDonationCategoriesNames);
                             $totalCategories2 = count($campaign->allDonationCategoriesNames);
@@ -154,6 +156,8 @@
                             @endif
                         @endforeach
                     </div>
+                </section>
+                    @endif
                 </div>
                 <div class="col-lg-4 mt-lg-0 mt-5">
                     <div class="donation-sidebar">
@@ -262,7 +266,16 @@
                                             @lang('Make Anonymous Donation')
                                         </label>
                                     </div>
-                                @endif
+                                @endif                                
+                                @auth
+                                    <div class="form--check mb-4">
+                                        <input class="form-check-input" type="checkbox" name="regular" id="regular-checkon"
+                                            value="1">
+                                        <label class="form-check-label" for="regular-checkon">
+                                            @lang('Make Regular Donation')
+                                        </label>
+                                    </div>
+                                @endauth
 
                                 
                                 @php

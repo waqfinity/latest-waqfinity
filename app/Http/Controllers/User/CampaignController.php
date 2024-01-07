@@ -276,6 +276,8 @@ class CampaignController extends Controller
         }
         $campaign->CampaignDonationCategoriesNames = $donationCategoriesArr; 
         $campaign->allDonationCategoriesNames = $allDonationCategoriesArr; 
+        $category = Category::where("id", $campaign->category_id)->get();
+        $campaign->isCorporate = $category[0]->is_corporate;
           
 
         return view($this->activeTemplate . 'user.campaign.details', compact('pageTitle', 'campaign'));

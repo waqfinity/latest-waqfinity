@@ -176,6 +176,7 @@
         @endif
     @endforeach
 </div> -->
+ @if ($campaign->isCorporate !== 1)
     <div class="container">
            <hr>
         
@@ -217,6 +218,7 @@
             </div>
             @endif
         @endforeach
+         @endif
     </div>
 @endsection
 

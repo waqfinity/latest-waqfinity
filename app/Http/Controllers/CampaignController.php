@@ -101,6 +101,8 @@ class CampaignController extends Controller {
         }
         $campaign->CampaignDonationCategoriesNames = $donationCategoriesArr;
         $campaign->allDonationCategoriesNames = $allDonationCategoriesArr;
+        $category = Category::where("id", $campaign->category_id)->get();
+        $campaign->isCorporate = $category[0]->is_corporate;
 
 //        $campaignsDonationCategory = CampaignsDonationCategory::where("campaign_id", $request->id)->get();
 //        $campaignsDonationCategories = [];

@@ -7,6 +7,7 @@ use App\Traits\Searchable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Donation;
 
 class User extends Authenticatable
 {
@@ -105,6 +106,10 @@ class User extends Authenticatable
     public function scopeWithBalance($query)
     {
         return $query->where('balance','>', 0);
+    }
+    public function donations()
+    {
+        return $this->hasMany(Donation::class, 'user_id');
     }
 
 }

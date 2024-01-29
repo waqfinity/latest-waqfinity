@@ -163,6 +163,16 @@
             color="primary"
         />
         </div>
+        <div class="col-xxl-3 col-sm-6">
+            <x-widget
+            style="2"
+            link="{{route('admin.withdraw.pending')}}"
+            icon="las la-sync"
+            title="Total Subscriptions"
+            value="{{$withdrawals['total_withdraw_pending']}}"
+            color="warning"
+        />
+        </div>
     </div><!-- row end-->
 
     <div class="row gy-4 mt-30">

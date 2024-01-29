@@ -19,6 +19,28 @@
                         <i class="menu-icon las la-list-alt"></i>
                         <span class="menu-title">@lang('Pages Categories')</span>
                     </a>
+                </li>                
+
+                <li class="sidebar-menu-item {{ menuActive('admin.property.index') }}">
+                    <a href="{{ route('admin.property.index') }}" class="nav-link ">
+                        <i class="menu-icon las la-building"></i>
+                        <span class="menu-title">@lang('Properties')</span>
+                    </a>
+                </li>                
+
+                <li class="sidebar-menu-item {{ menuActive('admin.investment.index') }}">
+                    <a href="{{ route('admin.investment.index') }}" class="nav-link ">
+                        <i class="menu-icon las la-recycle"></i>
+                        <span class="menu-title">@lang('Investments')</span>
+                    </a>
+                </li>                
+
+
+                <li class="sidebar-menu-item {{ menuActive('admin.patch.index') }}">
+                    <a href="{{ route('admin.patch.index') }}" class="nav-link ">
+                        <i class="menu-icon las la-users"></i>
+                        <span class="menu-title">@lang('Patches')</span>
+                    </a>
                 </li>
 
                 <li class="sidebar-menu-item sidebar-dropdown">
@@ -368,6 +390,17 @@
                                 <a href="{{ route('admin.withdraw.pending') }}" class="nav-link">
                                     <i class="menu-icon las la-dot-circle"></i>
                                     <span class="menu-title">@lang('Pending Withdrawals')</span>
+
+                                    @if ($pendingWithdrawCount)
+                                        <span class="menu-badge pill bg--danger ms-auto">{{ $pendingWithdrawCount }}</span>
+                                    @endif
+                                </a>
+                            </li>                            
+
+                            <li class="sidebar-menu-item {{ menuActive('admin.subscriber.pending') }} ">
+                                <a href="{{ route('admin.subscriber.pending') }}" class="nav-link">
+                                    <i class="menu-icon las la-dot-circle"></i>
+                                    <span class="menu-title">@lang('Total subscriptions')</span>
 
                                     @if ($pendingWithdrawCount)
                                         <span class="menu-badge pill bg--danger ms-auto">{{ $pendingWithdrawCount }}</span>

@@ -10,7 +10,6 @@
             </div>
             <a href="{{ route('campaign.details', ['slug' => $campaign->slug, 'id' => $campaign->id]) }}"
                 class="item-link"></a>
-
             <div class="event-card__thumb">
                 <img src="{{ getImage(getFilePath('campaign') . '/' . $campaign->image, getFileSize('campaign')) }}"
                     alt="image" class="w-100">

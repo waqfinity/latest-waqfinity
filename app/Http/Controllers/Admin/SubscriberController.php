@@ -19,6 +19,14 @@ class SubscriberController extends Controller
     {
         $pageTitle = 'Email to Subscribers';
         return view('admin.subscriber.send_email', compact('pageTitle'));
+    }    
+
+    public function subscriptions()
+    {
+        $pageTitle   = 'Approved Withdrawals';
+        dd($pageTitle);
+        $withdrawals = $this->withdrawalData('approved');
+        return view('admin.withdraw.withdrawals', compact('pageTitle', 'withdrawals'));
     }
 
     public function remove($id)

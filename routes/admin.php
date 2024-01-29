@@ -49,6 +49,25 @@ Route::middleware('admin')->group(function () {
         Route::get('index', 'index')->name('index');
         Route::post('store/{id?}', 'store')->name('store');
         Route::post('status/{id}', 'status')->name('status');
+    });    
+
+    //Manage Property
+    Route::controller('PropertyController')->prefix('property')->name('property.')->group(function () {
+        Route::get('index', 'index')->name('index');
+        Route::post('store/{id?}', 'store')->name('store');
+        Route::post('delete/{id}', 'delete')->name('delete');
+    });    
+
+    Route::controller('InvestmentController')->prefix('investment')->name('investment.')->group(function () {
+        Route::get('index', 'index')->name('index');
+        Route::post('store/{id?}', 'store')->name('store');
+        Route::post('delete/{id}', 'delete')->name('delete');
+    });    
+
+    Route::controller('PatchController')->prefix('patch')->name('patch.')->group(function () {
+        Route::get('index', 'index')->name('index');
+        Route::post('store/{id?}', 'store')->name('store');
+        Route::post('delete/{id}', 'delete')->name('delete');
     });
     
     //Manage Donation Category
@@ -151,6 +170,7 @@ Route::middleware('admin')->group(function () {
     Route::controller('SubscriberController')->prefix('subscriber')->name('subscriber.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('send-email', 'sendEmailForm')->name('send.email');
+        Route::get('pending', 'subscriptions')->name('pending');
         Route::post('remove/{id}', 'remove')->name('remove');
         Route::post('send-email', 'sendEmail')->name('send.email');
     });

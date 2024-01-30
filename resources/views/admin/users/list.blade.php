@@ -13,8 +13,6 @@
                                 <th>@lang('Country')</th>
                                 <th>@lang('Joined At')</th>
                                 <th>@lang('Balance')</th>
-                                <th>@lang('Total no of donations')</th>
-                                <th>@lang('Donation Amount')</th>
                                 <th>@lang('Action')</th>
                             </tr>
                             </thead>
@@ -43,17 +41,6 @@
                                     {{ $general->cur_sym }}{{ showAmount($user->balance) }}
                                     </span>
                                 </td>
-                                @php
-                                        $totalDonations = $user->donations->count();
-                                        $totalAmount = $user->donations->sum('donation');
-                                @endphp
-                                <td>
-                                    {{ $totalDonations }}
-                                </td>
-                                <td>
-                                    {{ $totalAmount }}
-                                </td>
-                                
                                 <td>
                                     <div class="button--group">
                                         <a href="{{ route('admin.users.detail', $user->id) }}" class="btn btn-sm btn-outline--primary">

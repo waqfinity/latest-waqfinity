@@ -12,6 +12,8 @@
                                     <th>@lang('email')</th>
                                     <th>@lang('mobile')</th>
                                     <th>@lang('city')</th> 
+                                    <th>@lang('Total no of donations')</th> 
+                                    <th>@lang('Total Amount')</th> 
                                     <th>@lang('address')</th> 
                                 </tr>
                             </thead>
@@ -22,6 +24,8 @@
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->mobile }}</td>
                                         <td>{{ $user->city }}</td>  
+                                        <td>{{ $user->total_donations }}</td> 
+                                        <td>{{ $user->total_amount }}</td>
                                         <td>{{ $user->address }}</td>
                                     </tr>
                                 @empty

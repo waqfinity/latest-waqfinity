@@ -23,6 +23,19 @@ class Donation extends Model {
         return $this->hasOne(DonationCategory::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function totalAmount()
+    {
+        return $this->where('user_id', $this->user_id)
+                    ->where('status', Status::DONATION_PAID)
+                    ->sum('donation');
+    }
+
+
     public function scopePaid($query) {
         return $query->where('status', Status::DONATION_PAID);
     }

@@ -16,6 +16,7 @@ use App\Models\Deposit;
 use App\Models\CampaignMeta;
 use Illuminate\Support\Facades\Hash;
 use App\Models\CampaignsDonationCategory;
+use Illuminate\Support\Facades\DB;
 
 class DonationController extends Controller {
 
@@ -74,7 +75,26 @@ class DonationController extends Controller {
 
 
         $pageTitle = "Donors List";
-        $users = Donation::where('status', Status::DONATION_PAID)->groupBy('fullname', 'email', "user_id")->orderBy('id', 'DESC')->searchable(['fullname', 'mobile', 'address', 'email', 'city', 'campaign:title', 'deposit.gateway:name'])->filter(['anonymous'])->dateFilter()->with('campaign', 'deposit', 'deposit.gateway')->filter(['status'])->whereHas('campaign')->paginate(getPaginate());
+        $users = Donation::select(
+                        'fullname',
+                        'email',
+                        'mobile',
+                        'city',
+                        DB::raw('count(*) as total_donations'),
+                        DB::raw('SUM(donation) as total_amount'),
+                        'address'
+                    )
+                    ->where('status', Status::DONATION_PAID)
+                    ->groupBy('fullname', 'email', 'user_id')
+                    ->orderBy('id', 'DESC')
+                    ->searchable(['fullname', 'mobile', 'address', 'email', 'city', 'campaign:title', 'deposit.gateway:name'])
+                    ->filter(['anonymous'])
+                    ->dateFilter()
+                    ->with('campaign', 'deposit', 'deposit.gateway')
+                    ->filter(['status'])
+                    ->whereHas('campaign')
+                    ->groupBy('user_id', 'email')
+                    ->paginate(getPaginate());
 
         $users->getCollection()->each(function ($donation) {
             $donationCategoriesId = explode(',', $donation->donation_categories_id);

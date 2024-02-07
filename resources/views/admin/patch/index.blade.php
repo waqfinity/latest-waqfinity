@@ -32,7 +32,7 @@
                                     @endforeach
                                        </td>                                       
                                          <td>
-                                            {{ $patch->amount }}
+                                            £{{ $patch->amount }}
 
                                         </td>                         
                                         <td class="text-start">
@@ -78,11 +78,12 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>@lang('Name')</label>
+                            <label>@lang('Name'):</label>
                             <input type="text" name="name" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label>@lang('Months')</label>
+                            <label>@lang('Donations per month'):</label>
+                            <small class="text-warning d-block mb-2" style="font-size:11px">( Below are the donations calculated per month. Select them to create one patch. )</small>
                             @php
                             $donationsByMonth = \App\Models\Donation::select(
                                 DB::raw('MONTH(created_at) as month'),
@@ -104,14 +105,14 @@
                                     <div class="form-check ps-0 d-flex align-items-center gap-2">
                                         <input type="checkbox" name="selected_months[]" value="{{ $monthYear }}" id="{{ $monthlyTotal->total_amount }}">
                                         <label class="form-check-label mb-0" for="{{ $monthYear }}">
-                                         {{ $monthYear2 }} (    {{ $monthlyTotal->total_amount }} )
+                                         {{ $monthYear2 }} (    £{{ $monthlyTotal->total_amount }} )
                                         </label> 
                                     </div>
                                 @endforeach
                             </div>
                         </div>
                           <div class="form-group">
-                            <label>@lang('Total amount')</label>
+                            <label>@lang('Total amount'):</label>
                             <input type="text" name="amount" id="total_amount" class="form-control" value="0" readonly>
                         </div>
 

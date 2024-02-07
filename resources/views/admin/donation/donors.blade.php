@@ -8,13 +8,13 @@
                         <table class=" table align-items-center table--light">
                             <thead>
                                 <tr>
-                                    <th>@lang('full name')</th>
-                                    <th>@lang('email')</th>
-                                    <th>@lang('mobile')</th>
-                                    <th>@lang('city')</th> 
-                                    <th>@lang('Total no of donations')</th> 
+                                    <th>@lang('Full Name')</th>
+                                    <th>@lang('Email')</th>
+                                    <th>@lang('Mobile')</th>
+                                    <th>@lang('City')</th> 
+                                    <th>@lang('Total No Of Donations')</th> 
                                     <th>@lang('Total Amount')</th> 
-                                    <th>@lang('address')</th> 
+                                    <th>@lang('Address')</th> 
                                 </tr>
                             </thead>
                             <tbody>
@@ -25,7 +25,8 @@
                                         <td>{{ $user->mobile }}</td>
                                         <td>{{ $user->city }}</td>  
                                         <td>{{ $user->total_donations }}</td> 
-                                        <td>{{ $user->total_amount }}</td>
+                                        <td>£{{ number_format($user->total_amount, 2) }}
+                                        </td>
                                         <td>{{ $user->address }}</td>
                                     </tr>
                                 @empty

@@ -23,7 +23,9 @@ class PropertyController extends Controller
         $request->validate([
             'property_name'   => 'required',
             'amount'          => 'required',
-            'key_contact'     => 'required',
+            'key_person_name'     => 'required',
+            'key_person_mobile'     => 'required',
+            'key_person_email'     => 'required',
             'location'        => 'required',
             'property_doc_url'        => 'required',
         ]);
@@ -39,7 +41,9 @@ class PropertyController extends Controller
         $property->property_name = $request->property_name;
         $property->amount =  $request->amount;
         $property->location =  $request->location;
-        $property->key_contact =  $request->key_contact;
+        $property->key_person_name =  $request->key_person_name;
+        $property->key_person_mobile =  $request->key_person_mobile;
+        $property->key_person_email =  $request->key_person_email;
         $property->description =  $request->description;
         $property->property_doc_url =  $request->property_doc_url;
         $property->save();

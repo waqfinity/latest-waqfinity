@@ -12,8 +12,10 @@
                                     <th>@lang('Name')</th>
                                     <th>@lang('Location')</th>
                                     <th>@lang('Description')</th>
-                                    <th>@lang('Contact person name and number')</th>
-                                    <th>@lang('Property URL')</th>
+                                    <th>@lang('Contact person name')</th>
+                                    <th>@lang('Contact person mobile')</th>
+                                    <th>@lang('Contact person email')</th>
+                                    <th>@lang('Documentation URL')</th>
                                     <th>@lang('Value')</th>
                                     <th style="text-align: left;">@lang('Action')</th>
                                 </tr>
@@ -23,36 +25,48 @@
                                 
                                     <tr>
                                         <td>
-                                            <div class="user thumb">
-                                                <div class="thumb w-100">
-                                                    <span> {{$property->property_name }}</span>
-                                                    
-                                                </div>
-                                            </div>
+                                          {{$property->property_name }}
                                         </td>
                                         <td> @php echo $property->location @endphp </td>
-                                        <td style="white-space: break-spaces">
+                                        <td>
                                             {{ $property->description }}
 
                                         </td>             
                                         <td>
-                                            {{ $property->key_contact }}
+                                            {{ $property->key_person_name }}
+
+                                        </td>                                      
+                                        <td>
+                                            {{ $property->key_person_mobile }}
+
+                                        </td>                                           <td>
+                                            {{ $property->key_person_email }}
 
                                         </td>                                        
                                         <td>
-                                            <a href="{{ $property->property_doc_url }}" target="_blank"> {{ $property->property_doc_url }} </a>
+                                            <a href="{{ $property->property_doc_url }}" target="_blank"> View Document </a>
 
                                         </td>                                       
                                          <td>
-                                            {{ $property->amount }}
+                                            £{{ $property->amount }}
 
                                         </td>                         
                                         <td >
-                                        <button type="button" class="btn btn-sm btn-outline--danger confirmationBtn"
+                                        <button type="button" class="btn btn-sm btn-outline--primary editBtn cuModalBtn" data-resource="{{$property}}"   data-modal_title="@lang('Edit Property')" data-has_status="1">
+                                            <i class="la la-pencil"></i>@lang('Edit')
+                                        </button>
+                                         @if ($property->investments->isNotEmpty())
+                                            <button type="button" class="btn btn-sm btn-outline--danger confirmationBtn"
+                                            disabled>
+                                                    <i class="la la-trash"></i> @lang('Delete')
+                                            </button>
+                                            @else
+                                             <button type="button" class="btn btn-sm btn-outline--danger confirmationBtn"
                                             data-action="{{ route('admin.property.delete', $property->id) }}"
                                             data-question="@lang('Are you sure to delete the property')?">
                                                     <i class="la la-trash"></i> @lang('Delete')
                                             </button>
+                                            @endif
 
                                         </td>
                                     </tr>
@@ -96,15 +110,23 @@
                         <input type="text" name="location" class="form-control" required>
                     </div>                   
                     <div class="form-group">
-                        <label>@lang('Amount')</label>
+                        <label>@lang('Value')(£)</label>
                         <input type="number" name="amount" class="form-control" required>
                     </div>                    
                     <div class="form-group">
-                        <label>@lang('Key person to contact')(@lang('Name and number'))</label>
-                        <input type="text" name="key_contact" class="form-control" required>
+                        <label>@lang('Name of the person to contact')</label>
+                        <input type="text" name="key_person_name" class="form-control" required>
+                    </div>                     
+                    <div class="form-group">
+                        <label>@lang('Contact person mobile')</label>
+                        <input type="text" name="key_person_mobile" class="form-control" required>
+                    </div>                     
+                    <div class="form-group">
+                        <label>@lang('Contact person Email')</label>
+                        <input type="text" name="key_person_email" class="form-control" required>
                     </div>                   
                      <div class="form-group">
-                        <label>@lang('Property google document url')</label>
+                        <label>@lang('Documentation URL')</label>
                         <input type="text" name="property_doc_url" class="form-control" required>
                     </div>
                      <div class="form-group">

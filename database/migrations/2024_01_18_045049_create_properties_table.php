@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('property_name');
             $table->decimal('amount', 10, 2);
             $table->string('location');
-            $table->string('key_contact');
+            $table->string('key_person_name');
+            $table->string('key_person_mobile');
+            $table->string('key_person_email');
             $table->string('property_doc_url');
             $table->text('description')->nullable();
             $table->timestamps();

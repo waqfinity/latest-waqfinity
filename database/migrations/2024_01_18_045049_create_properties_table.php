@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('amount', 10, 2);
             $table->string('location');
             $table->string('key_contact');
+            $table->string('property_doc_url');
             $table->text('description')->nullable();
             $table->timestamps();
         });

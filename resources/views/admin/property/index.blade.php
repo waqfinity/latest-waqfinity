@@ -12,8 +12,9 @@
                                     <th>@lang('Name')</th>
                                     <th>@lang('Location')</th>
                                     <th>@lang('Description')</th>
-                                    <th>@lang('Contact person')</th>
-                                    <th>@lang('Amount')</th>
+                                    <th>@lang('Contact person name and number')</th>
+                                    <th>@lang('Property URL')</th>
+                                    <th>@lang('Value')</th>
                                     <th style="text-align: left;">@lang('Action')</th>
                                 </tr>
                             </thead>
@@ -36,6 +37,10 @@
                                         </td>             
                                         <td>
                                             {{ $property->key_contact }}
+
+                                        </td>                                        
+                                        <td>
+                                            <a href="{{ $property->property_doc_url }}" target="_blank"> {{ $property->property_doc_url }} </a>
 
                                         </td>                                       
                                          <td>
@@ -95,8 +100,12 @@
                         <input type="number" name="amount" class="form-control" required>
                     </div>                    
                     <div class="form-group">
-                        <label>@lang('Key person to contact')</label>
+                        <label>@lang('Key person to contact')(@lang('Name and number'))</label>
                         <input type="text" name="key_contact" class="form-control" required>
+                    </div>                   
+                     <div class="form-group">
+                        <label>@lang('Property google document url')</label>
+                        <input type="text" name="property_doc_url" class="form-control" required>
                     </div>
                      <div class="form-group">
                         <label>@lang('Description')</label>

@@ -25,6 +25,7 @@ class PropertyController extends Controller
             'amount'          => 'required',
             'key_contact'     => 'required',
             'location'        => 'required',
+            'property_doc_url'        => 'required',
         ]);
 
         if ($id) {
@@ -40,6 +41,7 @@ class PropertyController extends Controller
         $property->location =  $request->location;
         $property->key_contact =  $request->key_contact;
         $property->description =  $request->description;
+        $property->property_doc_url =  $request->property_doc_url;
         $property->save();
 
         $notify[] = ['success', $notification];

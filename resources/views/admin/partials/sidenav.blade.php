@@ -21,6 +21,13 @@
                     </a>
                 </li>                
 
+                <li class="sidebar-menu-item {{ menuActive('admin.category.index') }}">
+                    <a href="{{ route('admin.category.index') }}" class="nav-link ">
+                        <i class="menu-icon las la-list-alt"></i>
+                        <span class="menu-title">@lang('Subscriptions')</span>
+                    </a>
+                </li>                
+
                 <li class="sidebar-menu-item {{ menuActive('admin.property.index') }}">
                     <a href="{{ route('admin.property.index') }}" class="nav-link ">
                         <i class="menu-icon las la-building"></i>

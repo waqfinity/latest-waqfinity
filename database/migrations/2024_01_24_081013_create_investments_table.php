@@ -16,15 +16,19 @@ return new class extends Migration
         Schema::create('investments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('property_id'); // Assuming property_id is a foreign key
-            $table->unsignedBigInteger('patch_id'); // Assuming patch_id is a foreign key
-            $table->decimal('returns', 10, 2)->default(0); // Assuming returns is a decimal column with default value
+            $table->unsignedBigInteger('property_id');
+            $table->json('patch_id');
+            $table->decimal('total_amount', 10, 2)->default(0);
+            $table->decimal('returns', 10, 2)->default(0);
+            $table->string('doc_url')->nullable();
+            $table->string('status');
+            $table->date('start_date')->nullable();
             $table->timestamps();
 
-            // Define foreign key constraint if property_id and patch_id are foreign keys
+            // Define foreign key constraint if property_id is a foreign key
             $table->foreign('property_id')->references('id')->on('properties')->onDelete('cascade');
-            $table->foreign('patch_id')->references('id')->on('patches')->onDelete('cascade');
         });
+
     }
 
     /**

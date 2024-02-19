@@ -20,10 +20,15 @@ class InvestmentController extends Controller
 
     public function store(Request $request, $id = 0)
     {
+
         $request->validate([
             'name'   => 'required',
             'property_id'  => 'required',
             'patch_id'     => 'required',
+            'status'     => 'required',
+            'total_amount'     => 'required',
+            'doc_url'     => 'required',
+            'start_date'     => 'required',
         ]);
 
         if ($id) {
@@ -36,7 +41,11 @@ class InvestmentController extends Controller
       
         $investment->name = $request->name;
         $investment->property_id =  $request->property_id;
-        $investment->patch_id =  $request->patch_id;
+        $investment->patch_id =  json_encode($request->patch_id);
+        $investment->total_amount =  $request->total_amount;
+        $investment->doc_url =  $request->doc_url;
+        $investment->start_date =  $request->start_date;
+        $investment->status =  $request->status;
         $investment->save();
 
         $notify[] = ['success', $notification];

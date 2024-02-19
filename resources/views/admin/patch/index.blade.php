@@ -10,7 +10,9 @@
                                 <tr>
                                     <th>@lang('Name')</th>
                                     <th>@lang('Months')</th>
-                                    <th>@lang('Amount')</th>
+                                    <th>@lang('Value')</th>
+                                    <th>@lang('Total no of donations')</th>
+                                    <th>@lang('Status')</th>
                                     <th style="text-align: left;">@lang('Action')</th>
                                 </tr>
                             </thead>
@@ -27,25 +29,47 @@
                                             </div>
                                         </td>           
                                         <td>
-                                     @foreach (json_decode(stripslashes($patch->donation_ids), true) as $date)
-                                        {{ \Carbon\Carbon::parse(\DateTime::createFromFormat('m-Y', $date))->format('M-Y') }},
-                                    @endforeach
+                                         @foreach (json_decode(stripslashes($patch->donation_ids), true) as $date)
+                                         @php
+                                                $monthYear = \Carbon\Carbon::parse(\DateTime::createFromFormat('m-Y', $date))->format('Y-m');
+                                                $donationCount = \App\Models\Donation::whereYear('created_at', '=', $monthYear)
+                                                    ->whereMonth('created_at', '=', \Carbon\Carbon::parse($monthYear)->month)
+                                                    ->count();
+                                            @endphp
+                                            {{ \Carbon\Carbon::parse(\DateTime::createFromFormat('m-Y', $date))->format('M-Y') }},
+                                        @endforeach
                                        </td>                                       
                                          <td>
                                             £{{ $patch->amount }}
 
-                                        </td>                         
+                                        </td>   
+                                        <td>
+                                            {{ $donationCount }}
+                                       </td>   
+                                       <td>
+                                            @if($patch->investments->isEmpty())
+                                                <span class="text-warning">@lang('Unused')</span>
+                                            @else
+                                                <span class="text-success">@lang('Invested in property')</span>
+                                                 <ul>
+                                                    @foreach($patch->investments as $investment)
+                                                        @php
+                                                            $propertyLink = route('admin.property.index', ['search' => $investment->property->property_name]);
+                                                        @endphp
+                                                        <li><a href="{{ $propertyLink }}">Property Name: {{ $investment->property->property_name }}</a></li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                       </td>                    
                                         <td class="text-start">
-                                         <button type="button" class="btn btn-sm btn-outline--primary editBtn cuModalBtn" data-resource="{{$patch}}"   data-modal_title="@lang('Edit Patch')" data-has_status="1">
+                                        @if($patch->investments->isEmpty())
+                                            <button type="button" class="btn btn-sm btn-outline--primary editBtn cuModalBtn" data-resource="{{$patch}}"   data-modal_title="@lang('Edit Patch')" data-has_status="1">
                                                 <i class="la la-pencil"></i>@lang('Edit')
                                             </button>
-                                        <button type="button" class="btn btn-sm btn-outline--danger confirmationBtn"
-                                            data-action="{{ route('admin.patch.delete', $patch->id) }}"
-                                            data-question="@lang('Are you sure to delete the property')?">
-                                                    <i class="la la-trash"></i> @lang('Delete')
-                                            </button>
-
-                                        </td>
+                                        @else
+                                          <button type="button" class="btn btn-sm btn-outline--primary editBtn" data-bs-toggle="tooltip" data-bs-placement="right" title="Edit only if status unused" style="cursor: no-drop;"> <i class="la la-pencil"></i> @lang('Edit')</button>
+                                         @endif
+                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -85,29 +109,42 @@
                             <label>@lang('Donations per month'):</label>
                             <small class="text-warning d-block mb-2" style="font-size:11px">( Below are the donations calculated per month. Select them to create one patch. )</small>
                             @php
+                            $donationIds = \App\Models\Patch::pluck('donation_ids')->toArray();
                             $donationsByMonth = \App\Models\Donation::select(
                                 DB::raw('MONTH(created_at) as month'),
                                 DB::raw('YEAR(created_at) as year'),
-                                DB::raw('FORMAT(SUM(donation), 2) as total_amount')
+                                DB::raw('FORMAT(SUM(donation), 2) as total_amount'),
+                                DB::raw('COUNT(*) as donation_count')
                             )
                                 ->groupBy(DB::raw('MONTH(created_at)'), DB::raw('YEAR(created_at)'))->get();
                             @endphp
-                            <div class="d-flex align-items-center gap-2">
+                            <div class="d-flex flex-column align-items-start gap-2">
                                 
                                 @foreach($donationsByMonth as $monthlyTotal)
+
                                 
-                            @php
-                                $monthYear = $monthlyTotal->month . '-' . $monthlyTotal->year;
-                                $monthYear2 = \Carbon\Carbon::createFromDate($monthlyTotal->year, $monthlyTotal->month, 1)->format('F, Y');
-                            @endphp
+                                    @php
+                                        $monthYear = $monthlyTotal->month . '-' . $monthlyTotal->year;
+                                        $monthYear2 = \Carbon\Carbon::createFromDate($monthlyTotal->year, $monthlyTotal->month, 1)->format('F, Y');
+                                        $donationCount = $monthlyTotal->donation;
+                                        $hideMonth = false;
+                                        foreach ($donationIds as $donationId) {
+                                            $donationIdsArray = json_decode($donationId, true);
+                                            if (in_array($monthYear, $donationIdsArray)) {
+                                                $hideMonth = true;
+                                                break;
+                                            }
+                                        }
+                                    @endphp
 
-
+                                    @unless($hideMonth)
                                     <div class="form-check ps-0 d-flex align-items-center gap-2">
                                         <input type="checkbox" name="selected_months[]" value="{{ $monthYear }}" id="{{ $monthlyTotal->total_amount }}">
                                         <label class="form-check-label mb-0" for="{{ $monthYear }}">
-                                         {{ $monthYear2 }} (    £{{ $monthlyTotal->total_amount }} )
+                                         <b>Month</b> : {{ $monthYear2 }} <br> <b>No of donations</b> : {{ $monthlyTotal->donation_count}} <br> <b>Total value </b>: £{{ $monthlyTotal->total_amount }} 
                                         </label> 
                                     </div>
+                                    @endunless
                                 @endforeach
                             </div>
                         </div>
@@ -165,5 +202,5 @@
     });
 </script>
 @endpush
-
+ 
 

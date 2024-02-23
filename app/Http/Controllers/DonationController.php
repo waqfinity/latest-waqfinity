@@ -13,8 +13,8 @@ class DonationController extends Controller
 
     public function donation(Request $request)
     {
+       
       
-        
         $request->validate([
             'amount'      => 'numeric|required|min:1',
             'name'        => 'required|min:3|max:100',
@@ -52,6 +52,7 @@ class DonationController extends Controller
         $donation->user_id     = auth()->check() ? auth()->id() : 0;
         $donation->campaign_id = $campaign->id;
         $donation->anonymous   = $request->anonymous ? Status::YES : Status::NO;
+        $donation->regular     = $request->regular ? Status::YES : Status::NO;
 //        $donation->fullname    = $request->anonymous ? 'Anonymous' : $request->name;
 //        $donation->email       = $request->anonymous ? 'anonymous@guest.com' : $request->email;
 //        $donation->country     = $request->anonymous ? 'Anonymous' :$request->country;

@@ -66,6 +66,7 @@ class PaymentController extends Controller
         $data                  = new Deposit();
         $data->user_id         = $donation->user_id;           //campaign_creator
         $data->donation_id     = $donation->id;
+        $data->regular         = $donation->regular;
         $data->method_code     = $gate->method_code;
         $data->method_currency = strtoupper($gate->currency);
         $data->amount          = $request->amount;
@@ -88,7 +89,6 @@ class PaymentController extends Controller
 
     public function depositConfirm()
     {
-       
         $track = session()->get('Track');
         $deposit = Deposit::where('trx', $track)->where('status', Status::PAYMENT_INITIATE)->orderBy('id', 'DESC')->with('gateway')->firstOrFail();
 
@@ -101,7 +101,6 @@ class PaymentController extends Controller
         $data = $new::process($deposit);
 
         $data = json_decode($data);
-
 
         if (isset($data->error)) {
             $notify[] = ['error', $data->message];

@@ -54,6 +54,7 @@
                             <th>@lang('Amount')</th>
                             <th>@lang('Conversion')</th>
                             <th>@lang('Status')</th>
+                            <th>@lang('Type')</th>
                             <th>@lang('Action')</th>
                         </tr>
                         </thead>
@@ -94,6 +95,7 @@
                                 <td>
                                     @php echo $deposit->statusBadge @endphp
                                 </td>
+                              <td>{{ $deposit->regular == 1 ? 'subscription' : 'regular' }}</td>
                                 <td>
                                     <a href="{{ route('admin.deposit.details', $deposit->id) }}"
                                        class="btn btn-sm btn-outline--primary ms-1">

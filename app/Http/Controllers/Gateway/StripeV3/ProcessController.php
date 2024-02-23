@@ -17,25 +17,41 @@ class ProcessController extends Controller
 
     public static function process($deposit)
     {
-        
-        $StripeAcc = json_decode($deposit->gatewayCurrency()->gateway_parameter);
+
+        if ($deposit->regular == 0) {
+        return self::normalPaymnet($deposit);
+        } else {
+            return self::processSubscription($deposit);
+        }
+
+    }
+
+
+    private static function normalPaymnet($deposit){
+        $stripeAcc = json_decode($deposit->gatewayCurrency()->gateway_parameter);
         $alias = $deposit->gateway->alias;
         $general = gs();
-        \Stripe\Stripe::setApiKey("$StripeAcc->secret_key");
+        
+        \Stripe\Stripe::setApiKey($stripeAcc->secret_key);
+
         try {
             $session = \Stripe\Checkout\Session::create([
                 'payment_method_types' => ['card'],
                 'line_items' => [[
-                    'name' => $general->site_name,
-                    'description' => 'Deposit  with Stripe',
-                    'images' => [asset('assets/images/logoIcon/logo.png')],
-                    'amount' => round($deposit->final_amo,2) * 100,
-                    'currency' => "$deposit->method_currency",
+                    'price_data' => [
+                        'currency' => $deposit->method_currency,
+                        'unit_amount' => round($deposit->final_amo, 2) * 100,
+                        'product_data' => [
+                            'name' => $general->site_name,
+                            'description' => 'Deposit with Stripe',
+                            'images' => [asset('assets/images/logoIcon/logo.png')],
+                        ],
+                    ],
                     'quantity' => 1,
                 ]],
-                'cancel_url' => route(gatewayRedirectUrl()),
+                'mode' => 'payment',
                 'success_url' => route(gatewayRedirectUrl(true)),
-//                'success_url' => route('ipn.'.$deposit->gateway->alias),
+                'cancel_url' => route(gatewayRedirectUrl()),
             ]);
         } catch (\Exception $e) {
             $send['error'] = true;
@@ -45,20 +61,70 @@ class ProcessController extends Controller
 
         $send['view'] = 'user.payment.'.$alias;
         $send['session'] = $session;
-        $send['StripeJSAcc'] = $StripeAcc;
-        $deposit->btc_wallet = json_decode(json_encode($session))->id;
-//        $send['url'] = route('ipn.'.$deposit->gateway->alias);
-       
-        Log::info("process in ProcessController for strip ");
+        $send['StripeJSAcc'] = $stripeAcc;
+        $deposit->btc_wallet = json_decode(json_encode($session))->id;;
+        
+        Log::info("process in ProcessController for stripe");
         $deposit->save();
-     
+
         return json_encode($send);
+    }
+
+    public static function processSubscription($deposit)
+    {
+
+        $stripeAcc = json_decode($deposit->gatewayCurrency()->gateway_parameter);
+        $alias = $deposit->gateway->alias;
+        $general = gs();
+
+        \Stripe\Stripe::setApiKey($stripeAcc->secret_key);
+
+        try {
+            // Create a new price in Stripe based on the user's input
+            $price = \Stripe\Price::create([
+                'currency' => $deposit->method_currency,
+                'unit_amount' => round($deposit->final_amo, 2) * 100,
+                'recurring' => ['interval' => 'month'],
+                'product_data' => [
+                    'name' => 'Waqfinity Donation subscription',
+                ],
+            ]);
+
+            // Use the newly created price ID to create the subscription session
+            $session = \Stripe\Checkout\Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [[
+                    'price' => $price->id,
+                    'quantity' => 1,
+                ]],
+                'mode' => 'subscription',
+                'success_url' => route(gatewayRedirectUrl(true)),
+                'cancel_url' => route(gatewayRedirectUrl()),
+            ]);
+        } catch (\Exception $e) {
+            $send['error'] = true;
+            $send['message'] = $e->getMessage();
+            return json_encode($send);
+        }
+
+        $send['view'] = 'user.payment.'.$alias;
+        $send['session'] = $session;
+        $send['StripeJSAcc'] = $stripeAcc;
+        $deposit->btc_wallet = json_decode(json_encode($session))->id;
+
+        Log::info("process in ProcessController for stripe");
+        $deposit->save();
+
+        return json_encode($send);
+
+
+
     }
 
 
     public function ipn(Request $request)
     {
-          Log::info("ipn for strip with dr moahmed ");
+        Log::info("ipn for strip with dr moahmed ");
         $StripeAcc = GatewayCurrency::where('gateway_alias','StripeV3')->orderBy('id','desc')->first();
         $gateway_parameter = json_decode($StripeAcc->gateway_parameter);
 
@@ -171,3 +237,5 @@ class ProcessController extends Controller
 //        
 //    }
 }
+
+

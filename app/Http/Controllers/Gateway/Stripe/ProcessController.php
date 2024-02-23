@@ -20,8 +20,7 @@ class ProcessController extends Controller
      * Stripe Gateway
      */
     public static function process($deposit)
-    {
-
+    { 
         $alias = $deposit->gateway->alias;
 
         $send['track']  = $deposit->trx;
@@ -59,7 +58,7 @@ class ProcessController extends Controller
 
         Stripe::setApiKey($stripeAcc->secret_key);
 
-        Stripe::setApiVersion("2020-03-02");
+        Stripe::setApiVersion("2023-10-16");
 
         try {
             $token = Token::create(array(

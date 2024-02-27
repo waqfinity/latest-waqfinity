@@ -166,10 +166,10 @@
         <div class="col-xxl-3 col-sm-6">
             <x-widget
             style="2"
-            link="{{route('admin.withdraw.pending')}}"
+            link="{{ route('admin.subscriber.list') }}"
             icon="las la-sync"
             title="Total Subscriptions"
-            value="{{$withdrawals['total_withdraw_pending']}}"
+            value="{{ $deposit['subscriptions_count'] }}"
             color="warning"
         />
         </div>

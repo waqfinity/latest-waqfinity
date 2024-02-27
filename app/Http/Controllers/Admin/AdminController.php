@@ -53,6 +53,7 @@ class AdminController extends Controller
         $deposit['total_deposit_amount']   = Deposit::successful()->sum('amount');
         $deposit['total_deposit_pending']  = Deposit::pending()->sum('amount');
         $deposit['total_deposit_rejected'] = Deposit::rejected()->sum('amount');
+        $deposit['subscriptions_count'] = Deposit::where('regular', 1)->where('status', 1)->count();
 
         $withdrawals['total_withdraw_amount']   = Withdrawal::approved()->sum('amount');
         $withdrawals['total_withdraw_pending']  = Withdrawal::pending()->count();

@@ -21,8 +21,8 @@
                     </a>
                 </li>                
 
-                <li class="sidebar-menu-item {{ menuActive('admin.category.index') }}">
-                    <a href="{{ route('admin.category.index') }}" class="nav-link ">
+                <li class="sidebar-menu-item {{ menuActive('admin.subscriber.list') }}">
+                    <a href="{{ route('admin.subscriber.list') }}" class="nav-link ">
                         <i class="menu-icon las la-list-alt"></i>
                         <span class="menu-title">@lang('Subscriptions')</span>
                     </a>
@@ -404,16 +404,6 @@
                                 </a>
                             </li>                            
 
-                            <li class="sidebar-menu-item {{ menuActive('admin.subscriber.pending') }} ">
-                                <a href="{{ route('admin.subscriber.pending') }}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Total subscriptions')</span>
-
-                                    @if ($pendingWithdrawCount)
-                                        <span class="menu-badge pill bg--danger ms-auto">{{ $pendingWithdrawCount }}</span>
-                                    @endif
-                                </a>
-                            </li>
 
                             <li class="sidebar-menu-item {{ menuActive('admin.withdraw.approved') }} ">
                                 <a href="{{ route('admin.withdraw.approved') }}" class="nav-link">

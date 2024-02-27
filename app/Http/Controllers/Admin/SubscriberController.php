@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Subscriber;
 use Illuminate\Http\Request;
+use App\Models\Deposit;
 
 class SubscriberController extends Controller
 {
@@ -19,7 +20,14 @@ class SubscriberController extends Controller
     {
         $pageTitle = 'Email to Subscribers';
         return view('admin.subscriber.send_email', compact('pageTitle'));
-    }    
+    }   
+
+    public function subscribersList(){
+        $pageTitle = 'Subscriptions List';
+        $subscriptions = Deposit::with('user', 'donation')->where('status', 1)->where('regular', 1)->paginate(getPaginate());
+        return view('admin.subscriptions.index', compact('pageTitle', 'subscriptions'));
+
+    } 
 
     public function subscriptions()
     {

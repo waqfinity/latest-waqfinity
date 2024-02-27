@@ -173,6 +173,7 @@ Route::middleware('admin')->group(function () {
         Route::get('pending', 'subscriptions')->name('pending');
         Route::post('remove/{id}', 'remove')->name('remove');
         Route::post('send-email', 'sendEmail')->name('send.email');
+        Route::get('list', 'subscribersList')->name('list');
     });
 
 

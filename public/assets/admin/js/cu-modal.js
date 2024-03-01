@@ -26,14 +26,14 @@ $(document).on("click", ".cuModalBtn", function () {
 
         if (data.has_status) {
 
-            cuModal.find(".status").html(`
-				<div class="form-group">
-					<label class="fw-bold">Status</label>
-					<input type="checkbox" data-width="100%" data-height="50" data-size="large" data-onstyle="-success" data-offstyle="-danger" data-toggle="toggle" data-on="Enabled" data-off="Disabled" name="status">
-				</div>
-			`);
+   //          cuModal.find(".status").html(`
+			// 	<div class="form-group">
+			// 		<label class="fw-bold">Status</label>
+			// 		<input type="checkbox" data-width="100%" data-height="50" data-size="large" data-onstyle="-success" data-offstyle="-danger" data-toggle="toggle" data-on="Enabled" data-off="Disabled" name="status">
+			// 	</div>
+			// `);
 
-            cuModal.find("[name=status]").bootstrapToggle();
+   //          cuModal.find("[name=status]").bootstrapToggle();
         }
 
         let fields = cuModal.find("input, select, textarea");

@@ -207,8 +207,8 @@
 @push('style')
     <style>
         .dropdown-menu{
-            min-width: 105px !important;
-            max-width: 105px !important;
+            min-width: 115px !important;
+            max-width: 115px !important;
         }
         .dropdown-toggle::after {
             display:none !important;

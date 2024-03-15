@@ -9,21 +9,32 @@
                             <thead>
                                 <tr>
                                     <th>@lang('Name')</th>
-                                    <th>@lang('Email')</th>
-                                    <th>@lang('Total Amount')</th>
+                                    <th>@lang('Status')</th>
+                                    <th>@lang('Billing Cycle')</th>
+                                    <th>@lang('Progress')</th>
                                     <th>@lang('Next Renewal Date')</th>
+                                    <th>@lang('From')</th>
+                                    <th>@lang('Details')</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($subscriptions as $subscription)
                                     <tr>
                                         <td>{{ $subscription->donation->fullname }}</td>
-                                        <td>{{ $subscription->donation->email }}</td>
-                                        <td>£{{ number_format($subscription->donation->donation, 2) }}</td>
-                                       <td>{{ \App\Models\Deposit::getSubscriptionDetailsBySessionId($subscription->btc_wallet) }}</td>
+                                        <td class="tr-{{ \App\Models\Deposit::getSubscriptionDetailsBySessionId($subscription->btc_wallet, 'status') }}">{{ \App\Models\Deposit::getSubscriptionDetailsBySessionId($subscription->btc_wallet, 'status') }}</td>
+                                        <td>£{{ number_format($subscription->donation->donation, 2) }} / per month</td>
+                                        <td> {{ \App\Models\Deposit::getSubscriptionDetailsBySessionId($subscription->btc_wallet, 'time_period') }} / @if(\App\Models\Deposit::getSubscriptionDetailsBySessionId($subscription->btc_wallet, 'status') == 'active')
+                                            Ongoing
+                                            @else
+                                            {{ \App\Models\Deposit::getSubscriptionDetailsBySessionId($subscription->btc_wallet, 'status') }}
+                                        @endif
 
 
-                                    </tr>
+                                       </td>
+                                       <td>{{ \App\Models\Deposit::getSubscriptionDetailsBySessionId($subscription->btc_wallet, 'date') }}</td>
+                                       <td>{{ $subscription->donation->campaign->title}}</td>
+                                       <td><a target="_blank" href="https://dashboard.stripe.com/subscriptions/{{ \App\Models\Deposit::getSubscriptionDetailsBySessionId($subscription->btc_wallet, 'id') }}">View Details</a></td>
+                                     </tr>
                                 @endforeach
 
                             </tbody>
@@ -36,6 +47,13 @@
     </div>
     @endsection
       
+    @push('style')
+    <style>
+        .tr-active{
+            color: green !important;
+        }
+    </style>
+    @endpush
 
 
 

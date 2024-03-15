@@ -90,7 +90,7 @@ class Deposit extends Model
         return $query->where('status', Status::PAYMENT_INITIATE);
     }
 
-    public static function getSubscriptionDetailsBySessionId($sessionId)
+    public static function getSubscriptionDetailsBySessionId($sessionId, $key)
         {
             // Retrieve the Stripe account information
             $stripeAcc = GatewayCurrency::where('gateway_alias', 'StripeV3')->orderBy('id', 'desc')->first();
@@ -106,18 +106,28 @@ class Deposit extends Model
                 $subscriptionId = $session->subscription;
 
                 // Retrieve subscription details from Stripe
-              $subscription = \Stripe\Subscription::retrieve($subscriptionId);
-
-                // Now you can access properties of the subscription object directly
+                $subscription = \Stripe\Subscription::retrieve($subscriptionId);
                 $subscriptionId = $subscription->id;
                 $customer = $subscription->customer;
                 $billing = $subscription->current_period_end;
                 $currentPeriodEnd = Carbon::createFromTimestamp($billing);
                 $formattedDate = $currentPeriodEnd->format('F d, Y');
-                // And so on...
-
-                // Return the subscription object itself
-                return $formattedDate;
+                $startDate = Carbon::createFromTimestamp($subscription->current_period_start);
+                   
+                if($key == 'date'){
+                    return $formattedDate;
+                }
+                elseif($key == 'status'){
+                    return $subscription->status;
+                }         
+                elseif($key == 'id'){
+                    return $subscriptionId;
+                }
+                elseif($key == 'time_period'){
+                    $numMonthsPaid = $startDate->diffInMonths($currentPeriodEnd);
+                    return $numMonthsPaid;
+                }
+                return null;
             } catch (\Exception $e) {
                 // Handle any errors
                 // You might want to handle errors more gracefully

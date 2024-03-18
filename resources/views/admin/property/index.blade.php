@@ -44,7 +44,8 @@
                                                 <i class="fas fa-ellipsis-v"></i>
                                               </button>
                                               <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                <li><button class="dropdown-item view-details" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-property="{{ json_encode($property) }}"> View details</button></li>
+                                                <li>
+                                                    <button class="dropdown-item view-details py-1" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-property="{{ json_encode($property) }}"> View details</button></li>
                                                 <li>
 
                                                 <button type="button" class="btn btn-sm btn-outline--primary editBtn cuModalBtn" data-resource="{{$property}}"   data-modal_title="@lang('Edit Property')" data-has_status="1">
@@ -220,7 +221,6 @@
            width: 100% !important;
         }
         .dropdown-item{
-            padding: 0 !important;
             margin-bottom: 6px !important;
         }      
         li .btn-outline--danger, li .btn-outline--primary{

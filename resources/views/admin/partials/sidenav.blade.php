@@ -40,6 +40,13 @@
                         <i class="menu-icon las la-recycle"></i>
                         <span class="menu-title">@lang('Investments')</span>
                     </a>
+                </li>                 
+
+                <li class="sidebar-menu-item {{ menuActive('admin.returns.index') }}">
+                    <a href="{{ route('admin.returns.index') }}" class="nav-link ">
+                        <i class="menu-icon las la-exchange-alt"></i>
+                        <span class="menu-title">@lang('Returns')</span>
+                    </a>
                 </li>                
 
 

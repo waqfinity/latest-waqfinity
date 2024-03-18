@@ -56,6 +56,12 @@ Route::middleware('admin')->group(function () {
         Route::get('index', 'index')->name('index');
         Route::post('store/{id?}', 'store')->name('store');
         Route::post('delete/{id}', 'delete')->name('delete');
+    });       
+
+    Route::controller('ReturnsController')->prefix('returns')->name('returns.')->group(function () {
+        Route::get('index', 'index')->name('index');
+        Route::post('store/{id?}', 'store')->name('store');
+        Route::post('delete/{id}', 'delete')->name('delete');
     });    
 
     Route::controller('InvestmentController')->prefix('investment')->name('investment.')->group(function () {
